@@ -72,7 +72,7 @@ spec:
 						mvn verify sonar:sonar \
 						-Dsonar.projectKey=Practica-Final-Backend \
 						-Dsonar.host.url=http://localhost:9000 \
-						-Dsonar.login=sqp_c9a1f2d6848a11ec647e8c29e06423742b131d69
+						-Dsonar.login=sqp_c9a1f2d6848a11ec647e8c29e06423742b131d69 \
 						set -x'
 						sh 'npm run sonar'
 					}
