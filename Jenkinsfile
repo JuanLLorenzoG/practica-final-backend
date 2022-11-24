@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: spring-boot-app
-    image: juanllorenzogomis/jenkins-nodo-java-bootcamp:3.0
+    image: juanllorenzogomis/jenkins-nodo-java-js-bootcamp:1.0
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-socket-volume
