@@ -59,7 +59,7 @@ spec:
 		
 		stage("JaCoCo Test"){
 			steps{
-				sh "mvn test"
+				//sh "mvn test"
 				jacoco()
 			}
 		}
@@ -67,8 +67,8 @@ spec:
 		stage("Quality Tests") {
 			steps {
 			        script {
-				        sh 'npm install'
-					sh 'npm run build'
+				        //sh 'npm install'
+					//sh 'npm run build'
 				        withSonarQubeEnv(credentialsId: "sonarqube-credentials", installationName: "sonarqube-server"){
 						sh 'npm run sonar'
 					}
