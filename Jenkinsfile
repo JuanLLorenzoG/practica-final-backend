@@ -54,12 +54,14 @@ spec:
 			steps{
 				sh "mvn test"
 				junit "target/surefire-reports/*.xml"
+			}
 		}
 		
 		stage("JaCoCo Test"){
 			steps{
 				sh "mvn test"
 				jacoco()
+			}
 		}
 
 	}
