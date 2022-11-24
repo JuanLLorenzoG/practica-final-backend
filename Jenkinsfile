@@ -43,6 +43,15 @@ spec:
 				sh 'mvn -version'
 			}
 		}
+
+		stages {
+		stage("Compile"){
+			steps {
+				sh "mvn clean package -DskipTests"
+			}
+		}
+
+
 	}
 
 	post {
