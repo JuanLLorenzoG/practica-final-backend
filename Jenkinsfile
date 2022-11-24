@@ -16,7 +16,10 @@ spec:
       privileged: true
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
-    imagePullPolicy: Always
+    command:
+    - cat
+    imagePullPolicy: IfNotPresent
+    tty: true
     volumeMounts:
     - mountPath: /kaniko/.docker
       name: kaniko-docker-cfg
@@ -29,20 +32,6 @@ spec:
     - sleep
     args:
     - infinity
-  - name: kaniko-docker-cfg
-    hostPath:
-      path: /kaniko/.docker
-    commad:
-    - sleep
-    args:
-    - 99d
-    projected:
-      sources:
-      - secret:
-        name: regcred
-        items: 
-        - key: .dockerconfigjson
-          path: config.json
 '''
             defaultContainer 'spring-boot-app'
         }
