@@ -92,6 +92,18 @@ spec:
 			steps { 
 				container('kaniko'){
 					echo "Aqui se construye la imagen"
+					script {
+						withCredentials("jenkins_dockerhub") {
+							AUTH = sh(script: """echo -n "${DOCKER_HUB_USER}:${DOCKER_HUB_PASS}" | base64""", returnStdout: true).trim()
+							command = """echo '{"auths": {"https://index.docker.io/v1/": {"auth": "${AUTH}"}}}' >> /kaniko/.docker/config.json"""
+							sh("""
+							set +x
+							${command}
+							set -x
+							""")
+							sh "/kaniko/executor --context `pwd` --destination ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} --cleanup"
+						}
+					}
 				}
 			}
 		}
