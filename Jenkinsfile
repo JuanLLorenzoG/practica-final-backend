@@ -34,7 +34,6 @@ spec:
 	}
 
 	stages {
-		agent(kubernetes){
 		stage("Prepare environment"){
 			steps {
 				echo "version de java"
@@ -81,7 +80,6 @@ spec:
 			steps {
 				sh 'mvn package'
 			}
-		}
 		}
 
 	}
