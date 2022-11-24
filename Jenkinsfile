@@ -36,8 +36,8 @@ spec:
 
 	environment {
 		DOCKER_HUB="jenkins_dockerhub"
-//		DOCKER_HUB_USER="juanllorenzogomis"
-//		DOCKER_HUB_PASS="Dockerhub43v3r"
+		DOCKER_HUB_USER="juanllorenzogomis"
+		DOCKER_HUB_PASS="Dockerhub43v3r"
 		DOCKERHUB_CREDENTIALS=credentials("jenkins_dockerhub")
 		DOCKER_IMAGE_NAME="juanllorenzogomis/prueba-final-backend"
 	}
