@@ -20,9 +20,6 @@ spec:
     - cat
     imagePullPolicy: IfNotPresent
     tty: true
-    volumeMounts:
-    - mountPath: /kaniko/.docker
-      name: kaniko-docker-cfg
   volumes:
   - name: docker-socket-volume
     hostPath:
