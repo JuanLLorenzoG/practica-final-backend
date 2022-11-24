@@ -26,6 +26,34 @@ spec:
 '''
             defaultContainer 'spring-boot-app'
         }
+	kaniko {
+		yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    imagePullPolicy: Always
+    command:
+    - sleep
+    args:
+    - 99d
+    volumeMounts:
+    - name: jenkins-docker-cfg
+      mountPath: /kaniko/.docker
+  volumes:
+  - name: jenkins-docker-cfg
+    projected:
+      sources:
+      - secret:
+          name: regcred
+          items:
+            - key: .dockerconfigjson
+              path: config.json
+'''
+		defaultContainer 'kaniko'
+	}
     }
 
 
@@ -35,6 +63,7 @@ spec:
 	}
 
 	stages {
+		agent(kubernetes){
 		stage("Prepare environment"){
 			steps {
 				echo "version de java"
@@ -46,7 +75,7 @@ spec:
 
 		stage("Compile"){
 			steps {
-				sh "mvn clean package -DskipTests"
+				sh "mvn clean compile -DskipTests"
 			}
 		}
 
@@ -68,13 +97,20 @@ spec:
 			steps {
 			        script {
 					withSonarQubeEnv("sonarqube-server"){
-						sh 'mvn sonar:sonar \
+						sh 'set +x mvn sonar:sonar \
 						-Dsonar.projectKey=Practica-Final-Backend \
 						-Dsonar.host.url=http://localhost:9000 \
-						-Dsonar.login=sqp_c9a1f2d6848a11ec647e8c29e06423742b131d69'
+						-Dsonar.login=sqp_c9a1f2d6848a11ec647e8c29e06423742b131d69 set -x'
 					}
 				}
 			}
+		}
+
+		stage("Package"){
+			steps {
+				sh 'mvn package'
+			}
+		}
 		}
 
 	}
