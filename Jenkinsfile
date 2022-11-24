@@ -8,12 +8,18 @@ kind: Pod
 spec:
   containers:
   - name: spring-boot-app
-    image: juanllorenzogomis/jenkins-nodo-java-js-bootcamp:2.0
+    image: juanllorenzogomis/jenkins-nodo-java-js-bootcamp:1.0
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-socket-volume
     securityContext:
       privileged: true
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    imagePullPolicy: Always
+    volumeMounts:
+    - mountPath: /kaniko/.docker
+      name: kaniko-docker-cfg
   volumes:
   - name: docker-socket-volume
     hostPath:
@@ -23,6 +29,20 @@ spec:
     - sleep
     args:
     - infinity
+  - name: kaniko-docker-cfg
+    hostPath:
+      path: /kaniko/.docker
+    commad:
+    - sleep
+    args:
+    - 99d
+    projected:
+      sources:
+      - secret:
+        name: regcred
+        items: 
+        - key: .dockerconfigjson
+          path: config.json
 '''
             defaultContainer 'spring-boot-app'
         }
