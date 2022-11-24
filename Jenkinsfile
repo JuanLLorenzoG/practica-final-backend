@@ -37,8 +37,10 @@ spec:
 	stages {
 		stage("Prepare environment"){
 			steps {
-				echo "java -version"
-				echo "mvn -version"
+				echo "version de java"
+				sh 'java -version'
+				echo "version de maven"
+				sh 'mvn -version'
 			}
 		}
 	}
