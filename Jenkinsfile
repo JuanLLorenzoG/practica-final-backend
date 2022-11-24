@@ -41,6 +41,7 @@ spec:
 				echo "mvn -version"
 			}
 		}
+	}
 
 	post {
 		always {
