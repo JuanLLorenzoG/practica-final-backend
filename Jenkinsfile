@@ -64,6 +64,18 @@ spec:
 			}
 		}
 
+		stage("Quality Tests") {
+			steps {
+			        script {
+				        sh 'npm install'
+					sh 'npm run build'
+				        withSonarQubeEnv(credentialsId: "sonarqube-credentials", installationName: "sonarqube-server"){
+						sh 'npm run sonar'
+					}
+				}
+			}
+		}
+
 	}
 
 	post {
