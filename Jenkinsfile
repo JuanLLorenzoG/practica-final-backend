@@ -36,7 +36,7 @@ spec:
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials("jenkins_dockerhub")
-		DOCKER_IMAGE_NAME="juanllorenzogomis/spring-boot-app"
+		DOCKER_IMAGE_NAME="juanllorenzogomis/prueba-final-backend"
 	}
 
 	stages {
@@ -85,6 +85,14 @@ spec:
 		stage("Package"){
 			steps {
 				sh 'mvn package -DskipTests'
+			}
+		}
+
+		stage("Build & Push"){
+			steps { 
+				container('kaniko'){
+					echo "Aqui se construye la imagen"
+				}
 			}
 		}
 
