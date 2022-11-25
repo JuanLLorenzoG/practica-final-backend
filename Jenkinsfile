@@ -132,6 +132,71 @@ spec:
 
 		}
 
+	        stage ("Setup Jmeter") {
+	            steps{
+	                script {
+	                    if(fileExists("jmeter-docker")){
+		                    sh 'rm -r jmeter-docker'
+	                    }
+
+		                sh 'git clone https://github.com/JuanLLorenzoG/jmeter-docker.git'
+
+		                dir('jmeter-docker') {
+
+		                    if(fileExists("apache-jmeter-5.5.tgz")){
+		                        sh 'rm -r apache-jmeter-5.5.tgz'
+		                    }
+
+		                    sh 'wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.tgz'
+		                    sh 'tar xvf apache-jmeter-5.5.tgz'
+		                    sh 'cp plugins/*.jar apache-jmeter-5.5/lib/ext'
+		                    sh 'mkdir test'
+		                    sh 'mkdir apache-jmeter-5.5/test'
+		                    sh 'cp *.jmx apache-jmeter-5.5/test/'
+		                    sh 'chmod +775 ./build.sh && chmod +775 ./run.sh && chmod +775 ./entrypoint.sh'
+		                    sh 'rm -r apache-jmeter-5.5.tgz'
+		                    sh 'tar -czvf apache-jmeter-5.5.tgz apache-jmeter-5.5'
+		                    sh './build.sh'
+		                    sh 'rm -r apache-jmeter-5.5 && rm -r apache-jmeter-5.5.tgz'
+		                    sh 'cp perform_test.jmx test'
+		                }
+	                }
+
+	            }
+	        }
+        
+	        stage ("Run Jmeter Performance Test") {
+	            steps{
+	                script {
+	                    dir('jmeter-docker') {
+	                        if(fileExists("apache-jmeter-5.5.tgz")){
+	                            sh 'rm -r apache-jmeter-5.5.tgz'
+	                        }
+	                        sh './run.sh -n -t test/perform_test.jmx -l test/perform_test.jtl'
+	                        sh 'pwd'
+	                        sh 'docker cp jmeter:/home/jmeter/apache-jmeter-5.5/test/perform_test.jtl $(pwd)/test'
+	                        perfReport 'test/perform_test.jtl'
+	                    }
+	                }
+	            }
+	        }
+        
+	        stage ("Generate Taurus Report") {
+	            steps{
+	                script {
+	                    dir('jmeter-docker') {
+	                        sh 'pip install bzt'
+	                        sh 'export PATH=$PATH:/home/jenkins/.local/bin'
+
+	                        BlazeMeterTest: {
+	                            sh 'bzt test/perform_test.jtl -report'
+	                        }
+	                    }
+	                }
+	            }
+	        }
+
+
 	}
 
 	post {
