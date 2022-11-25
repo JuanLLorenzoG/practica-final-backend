@@ -199,12 +199,12 @@ spec:
 		stage ("Run API Test") {
 			steps{
 				script {
-					if(fileExists("practica-final-backend-app")){
-						sh 'rm -r spring-boot-app'
+					if(fileExists("practica-final-backend")){
+						sh 'rm -r practica-final-backend'
 					}
 				sleep 20 // seconds
-				sh 'git clone https://github.com/JuanLLorenzoG/spring-boot-app.git spring-boot-app --branch api-test-implementation'
-				sh 'newman run spring-boot-app/src/main/resources/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
+				sh 'git clone https://github.com/JuanLLorenzoG/jmeter-docker.git practica-final-backend'
+				sh 'newman run jmeter-docker/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
 				junit "newman/report.xml"
 
 				}
