@@ -41,7 +41,7 @@ spec:
 		DOCKER_HUB_USER="juanllorenzogomis"
 		DOCKER_HUB_PASS="Dockerhub43v3r"
 		DOCKERHUB_CREDENTIALS=credentials("jenkins_dockerhub")
-		DOCKER_IMAGE_NAME="juanllorenzogomis/prueba-final-backend"
+		DOCKER_IMAGE_NAME="juanllorenzogomis/practica-final-backend"
 	}
 
 	stages {
@@ -119,7 +119,7 @@ spec:
 			}
 		}
 
-		stage('Deploy to K8s') {
+		stage('Run Test Environment') {
 			steps{
 				script {
 					if(fileExists("configuracion")){
