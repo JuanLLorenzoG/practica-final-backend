@@ -232,7 +232,7 @@ spec:
 				artifactExists = fileExists artifactPath
 					if(artifactExists) {
 						echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}"
-						versionPom = "${pom.version}"
+						version = "${pom.version}"
 
 						nexusArtifactUploader(
 						nexusVersion: NEXUS_VERSION,
