@@ -98,7 +98,7 @@ spec:
 				container('spring-boot-camp'){
 					script {
 						pom = readMavenPom(file: 'pom.xml')
-						version = ${pom.version}
+						version = pom.version
 					}
 				}
 				container('kaniko'){
