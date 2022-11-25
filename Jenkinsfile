@@ -96,8 +96,8 @@ spec:
 		stage("Build & Push"){
 			steps { 
 				container('spring-boot-camp'){
-					pom = sh '$(readMavenPom())'
-					version = sh '$(pom.version)'
+					pom = sh 'readMavenPom()'
+					version = sh 'pom.version'
 				}
 				container('kaniko'){
 					echo "Aqui se construye la imagen"
