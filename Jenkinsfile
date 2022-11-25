@@ -97,9 +97,10 @@ spec:
 			steps { 
 				container('spring-boot-camp'){
 					script {
-						pom = readMavenPom(file: 'pom.xml')
-						version = pom.version
-
+						withMaven {
+							pom = readMavenPom(file: 'pom.xml')
+							version = pom.version
+						}
 					}
 				}
 				container('kaniko'){
