@@ -119,6 +119,19 @@ spec:
 			}
 		}
 
+		stage('Deploy to K8s') {
+			steps{
+				script {
+					if(fileExists("configuracion")){
+						sh 'rm -r configuracion'
+					}
+				}
+				sh 'git clone https://github.com/JuanLLorenzoG/kubernetes-helm-docker-config.git configuracion --branch test-implementation'
+				sh 'kubectl apply -f configuracion/kubernetes-deployment/practica-final-backend/manifest.yml -n default --kubeconfig=configuracion/kubernetes-config/config'
+			}
+
+		}
+
 	}
 
 	post {
