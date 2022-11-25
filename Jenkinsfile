@@ -96,7 +96,9 @@ spec:
 		stage("Build & Push"){
 			steps { 
 				container('spring-boot-camp'){
-					version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+					script {
+						version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+					}
 				}
 				container('kaniko'){
 					echo "Aqui se construye la imagen"
