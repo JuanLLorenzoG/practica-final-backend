@@ -1,3 +1,5 @@
+def version = ""
+def pom = ""
 pipeline {
 
     agent {
@@ -94,8 +96,8 @@ spec:
 		stage("Build & Push"){
 			steps { 
 				container('spring-boot-camp'){
-					def pom = readMavenPom()
-					def version = pom.version
+					pom = readMavenPom()
+					version = pom.version
 				}
 				container('kaniko'){
 					echo "Aqui se construye la imagen"
