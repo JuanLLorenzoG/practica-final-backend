@@ -104,7 +104,7 @@ spec:
 							${command}
 							set -x
 							""")
-							version = readMavenPom().getVersion()
+							def version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
 							sh "/kaniko/executor --context `pwd` --destination ${DOCKER_IMAGE_NAME}:${version} --cleanup"
 						}
 					}
