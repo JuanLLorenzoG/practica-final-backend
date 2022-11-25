@@ -40,7 +40,7 @@ spec:
 		DOCKER_HUB_PASS="Dockerhub43v3r"
 		DOCKERHUB_CREDENTIALS=credentials("jenkins_dockerhub")
 		DOCKER_IMAGE_NAME="juanllorenzogomis/prueba-final-backend"
-		VERSION=readMavenPom().getVersion()
+		VERSION=$(readMavenPom().getVersion())
 	}
 
 	stages {
