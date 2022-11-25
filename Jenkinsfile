@@ -104,7 +104,7 @@ spec:
 							${command}
 							set -x
 							""")
-							sh "/kaniko/executor --context `pwd` --destination ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} --cleanup"
+							sh "/kaniko/executor --context `pwd` --destination ${DOCKER_IMAGE_NAME}:${version} --cleanup"
 						}
 					}
 				}
