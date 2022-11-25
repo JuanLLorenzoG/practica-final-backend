@@ -97,7 +97,9 @@ spec:
 			steps { 
 				container('spring-boot-camp'){
 					script {
-						version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+						pom = readMavenPom(file: 'pom.xml')
+						version = pom.version
+
 					}
 				}
 				container('kaniko'){
