@@ -196,6 +196,22 @@ spec:
 	            }
 	        }
 
+		stage ("Run API Test") {
+			steps{
+				script {
+					if(fileExists("practica-final-backend-app")){
+						sh 'rm -r spring-boot-app'
+					}
+				sleep 20 // seconds
+				sh 'git clone https://github.com/JuanLLorenzoG/spring-boot-app.git spring-boot-app --branch api-test-implementation'
+				sh 'newman run spring-boot-app/src/main/resources/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
+				junit "newman/report.xml"
+
+				}
+
+			}
+		}
+
 
 	}
 
