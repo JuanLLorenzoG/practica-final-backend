@@ -16,7 +16,9 @@ spec:
       privileged: true
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
-    command:
+sh(
+        script: mvnBin+''' -N -f '''+pom_file+''' org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version -q -DforceStdout''',
+        returnStdout: true).trim()    command:
     - cat
     imagePullPolicy: IfNotPresent
     tty: true
@@ -104,7 +106,7 @@ spec:
 							${command}
 							set -x
 							""")
-							def version = sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true)
+							def version = sh(script: mvnBin+''' -N -f '''+pom_file+''' org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version -q -DforceStdout''', returnStdout: true).trim()
 							sh "/kaniko/executor --context `pwd` --destination ${DOCKER_IMAGE_NAME}:${version} --cleanup"
 						}
 					}
