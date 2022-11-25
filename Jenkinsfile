@@ -49,6 +49,9 @@ spec:
 				sh 'java -version'
 				echo "version de maven"
 				sh 'mvn -version'
+				pom = readMavenPom(file: 'pom.xml')
+				def version = pom.version
+
 			}
 		}
 
@@ -104,8 +107,6 @@ spec:
 							${command}
 							set -x
 							""")
-							pom = readMavenPom(file: 'pom.xml')
-							def version = pom.version
 							sh "/kaniko/executor --context `pwd` --destination ${DOCKER_IMAGE_NAME}:${version} --cleanup"
 						}
 					}
@@ -117,8 +118,6 @@ spec:
 
 	post {
 		always {
-			sh "docker logout"
-		}
 	}
 
 }
