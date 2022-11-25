@@ -49,9 +49,6 @@ spec:
 				sh 'java -version'
 				echo "version de maven"
 				sh 'mvn -version'
-				pom = readMavenPom(file: 'pom.xml')
-				def version = pom.version
-
 			}
 		}
 
