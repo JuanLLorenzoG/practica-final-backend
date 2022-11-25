@@ -40,6 +40,7 @@ spec:
 		DOCKER_HUB_PASS="Dockerhub43v3r"
 		DOCKERHUB_CREDENTIALS=credentials("jenkins_dockerhub")
 		DOCKER_IMAGE_NAME="juanllorenzogomis/prueba-final-backend"
+		VERSION=readMavenPom().getVersion()
 	}
 
 	stages {
@@ -104,7 +105,7 @@ spec:
 							${command}
 							set -x
 							""")
-							sh "/kaniko/executor --context `pwd` --destination ${DOCKER_IMAGE_NAME}:${version} --cleanup"
+							sh "/kaniko/executor --context `pwd` --destination ${DOCKER_IMAGE_NAME}:${VERSION} --cleanup"
 						}
 					}
 				}
