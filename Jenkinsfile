@@ -121,6 +121,7 @@ spec:
 
 		stage('Run Test Environment') {
 			steps{
+				sleep 120 //seconds
 				script {
 					if(fileExists("configuracion")){
 						sh 'rm -r configuracion'
