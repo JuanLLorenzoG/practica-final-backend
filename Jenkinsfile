@@ -22,6 +22,12 @@ spec:
     - cat
     imagePullPolicy: IfNotPresent
     tty: true
+  - name: newman
+    image: postman/newman:latest
+    command:
+    -sleep
+    imagePullPolicy: IfNotPresent
+    tty: true
   volumes:
   - name: docker-socket-volume
     hostPath:
@@ -38,7 +44,6 @@ spec:
 
 	environment {
 		DOCKER_HUB="jenkins_dockerhub"
-		DOCKER_HUB_PASS="Dockerhub43v3r"
 		DOCKERHUB_CREDENTIALS=credentials("jenkins_dockerhub")
 		DOCKER_IMAGE_NAME="juanllorenzogomis/practica-final-backend"
 		NEXUS_VERSION = "nexus3"
@@ -201,16 +206,16 @@ spec:
 
 		stage ("Run API Test") {
 			steps{
-				script {
-					if(fileExists("practica-final-backend")){
-						sh 'rm -r practica-final-backend'
+				container('newman'){
+					script {
+						if(fileExists("practica-final-backend")){
+							sh 'rm -r practica-final-backend'
+						}
+						sleep 20 // seconds
+						sh 'git clone https://github.com/JuanLLorenzoG/jmeter-docker.git practica-final-backend'
+						sh 'newman run jmeter-docker/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
+						junit "newman/report.xml"
 					}
-			
-				sleep 20 // seconds
-				sh 'git clone https://github.com/JuanLLorenzoG/jmeter-docker.git practica-final-backend'
-				//sh 'newman run jmeter-docker/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
-				//junit "newman/report.xml"
-
 				}
 
 			}
