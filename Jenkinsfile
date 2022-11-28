@@ -82,10 +82,10 @@ spec:
 			steps {
 			        script {
 					withSonarQubeEnv("sonarqube-server"){
-						sh 'set +x mvn sonar:sonar \
-						-Dsonar.projectKey=Practica-Final-Backend \
-						-Dsonar.host.url=http://localhost:9000 \
-						-Dsonar.login=sqp_c9a1f2d6848a11ec647e8c29e06423742b131d69 set -x'
+						sh 'mvn clean verify sonar:sonar \
+						-Dsonar.projectKey=practica-final-backend \
+						-Dsonar.host.url=http://192.168.49.4:9000 \
+						-Dsonar.login=sqp_0432952de91c6076b96cde584462c223a60d272e'
 					}
 				}
 			}
