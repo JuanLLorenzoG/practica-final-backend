@@ -25,7 +25,7 @@ spec:
   - name: newman
     image: postman/newman:latest
     command:
-    - sleep
+    - cat
     imagePullPolicy: IfNotPresent
     tty: true
   volumes:
