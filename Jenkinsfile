@@ -147,7 +147,7 @@ spec:
 		                    sh 'rm -r jmeter-docker'
 	                    }
 
-		                sh 'git clone https://github.com/JuanLLorenzoG/jmeter-docker.git'
+		                sh 'git clone https://github.com/JuanLLorenzoG/jmeter-docker.git jmeter-docker'
 
 		                dir('jmeter-docker') {
 
@@ -212,7 +212,9 @@ spec:
 							sh 'rm -r practica-final-backend'
 						}
 						sleep 20 // seconds
-						sh 'git clone https://github.com/JuanLLorenzoG/jmeter-docker.git'
+						container('spring-boot-app') {
+							sh 'git clone https://github.com/JuanLLorenzoG/jmeter-docker.git practica-final-backend'
+						}
 						sh 'newman run jmeter-docker/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
 						junit "newman/report.xml"
 					}
