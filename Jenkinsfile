@@ -38,7 +38,6 @@ spec:
 
 	environment {
 		DOCKER_HUB="jenkins_dockerhub"
-		DOCKER_HUB_USER="juanllorenzogomis"
 		DOCKER_HUB_PASS="Dockerhub43v3r"
 		DOCKERHUB_CREDENTIALS=credentials("jenkins_dockerhub")
 		DOCKER_IMAGE_NAME="juanllorenzogomis/practica-final-backend"
@@ -108,8 +107,8 @@ spec:
 				container('kaniko'){
 					echo "Aqui se construye la imagen"
 					script {
-						withCredentials([usernamePassword(credentialsId: "jenkins_dockerhub", passwordVariable: "juanllorenzogomis", usernameVariable: "Dockerhub43v3r")]) {
-							AUTH = sh(script: """echo -n "${DOCKER_HUB_USER}:${DOCKER_HUB_PASS}" | base64""", returnStdout: true).trim()
+						withCredentials([usernamePassword(credentialsId: "jenkins_dockerhub", passwordVariable: "jenkins_dockerhubPassword", usernameVariable: "jenkins_dockerhubUser")]) {
+							AUTH = sh(script: """echo -n "${env.jenkins_dockerhubUser}:${env.jenkins_dockerhubPassword}" | base64""", returnStdout: true).trim()
 							command = """echo '{"auths": {"https://index.docker.io/v1/": {"auth": "${AUTH}"}}}' >> /kaniko/.docker/config.json"""
 							sh("""
 							set +x
