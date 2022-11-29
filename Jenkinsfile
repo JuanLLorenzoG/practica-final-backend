@@ -88,7 +88,7 @@ spec:
 					withSonarQubeEnv("sonarqube-server"){
 						sh 'mvn clean verify sonar:sonar \
 						-Dsonar.projectKey=practica-final-backend \
-						-Dsonar.host.url=http://localhost:9000 \
+						-Dsonar.host.url=http://192.168.49.3:9000 \
 						-Dsonar.login=sqp_0432952de91c6076b96cde584462c223a60d272e'
 					}
 				}
