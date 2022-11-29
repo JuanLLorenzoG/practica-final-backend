@@ -47,8 +47,8 @@ spec:
 		DOCKERHUB_CREDENTIALS=credentials("jenkins_dockerhub")
 		DOCKER_IMAGE_NAME="juanllorenzogomis/practica-final-backend"
 		NEXUS_VERSION = "nexus3"
-		NEXUS_PROTOCOL = "http"
-		NEXUS_URL = "192.168.49.4:8081"
+		NEXUS_PROTOCOL = "https"
+		NEXUS_URL = "lazy-turtles-join-213-0-57-163.loca.lt"
 		NEXUS_REPOSITORY = "bootcamp/"
 		NEXUS_CREDENTIAL_ID = "jenkins_nexus"
 	}
