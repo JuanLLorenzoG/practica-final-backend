@@ -48,7 +48,7 @@ spec:
 		DOCKER_IMAGE_NAME="juanllorenzogomis/practica-final-backend"
 		NEXUS_VERSION = "nexus3"
 		NEXUS_PROTOCOL = "http"
-		NEXUS_URL = "192.168.49.3:8081"
+		NEXUS_URL = "localhost:8081"
 		NEXUS_REPOSITORY = "bootcamp/"
 		NEXUS_CREDENTIAL_ID = "jenkins_nexus"
 	}
@@ -88,7 +88,7 @@ spec:
 					withSonarQubeEnv("sonarqube-server"){
 						sh 'mvn clean verify sonar:sonar \
 						-Dsonar.projectKey=practica-final-backend \
-						-Dsonar.host.url=http://192.168.49.4:9000 \
+						-Dsonar.host.url=http://localhost:9000 \
 						-Dsonar.login=sqp_0432952de91c6076b96cde584462c223a60d272e'
 					}
 				}
