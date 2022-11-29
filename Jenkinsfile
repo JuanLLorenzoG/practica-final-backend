@@ -49,7 +49,7 @@ spec:
 		NEXUS_VERSION = "nexus3"
 		NEXUS_PROTOCOL = "http"
 		NEXUS_URL = "localhost:8081"
-		NEXUS_REPOSITORY = "bootcamp/"
+		NEXUS_REPOSITORY = "#browse/browse:bootcamp"
 		NEXUS_CREDENTIAL_ID = "jenkins_nexus"
 	}
 
