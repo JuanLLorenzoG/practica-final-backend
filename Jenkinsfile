@@ -48,8 +48,8 @@ spec:
 		DOCKER_IMAGE_NAME="juanllorenzogomis/practica-final-backend"
 		NEXUS_VERSION = "nexus3"
 		NEXUS_PROTOCOL = "http"
-		NEXUS_URL = "localhost:8081"
-		NEXUS_REPOSITORY = "#browse/browse:bootcamp"
+		NEXUS_URL = "192.168.49.4:8081"
+		NEXUS_REPOSITORY = "bootcamp/"
 		NEXUS_CREDENTIAL_ID = "jenkins_nexus"
 	}
 
