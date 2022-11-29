@@ -9,7 +9,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: spring-boot-app
+  - name: super-nodo
     image: juanllorenzogomis/jenkins-nodo-java-js-bootcamp:1.0
     volumeMounts:
     - mountPath: /var/run/docker.sock
@@ -38,7 +38,7 @@ spec:
     args:
     - infinity
 '''
-            defaultContainer 'spring-boot-app'
+            defaultContainer 'super-nodo'
         }
     }
 
@@ -103,7 +103,7 @@ spec:
 
 		stage("Build & Push"){
 			steps { 
-				container('spring-boot-camp'){
+				container('super-nodo'){
 					script {
 						pom = readMavenPom(file: 'pom.xml')
 						version = pom.version
